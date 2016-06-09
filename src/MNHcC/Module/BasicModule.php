@@ -17,8 +17,8 @@ namespace MNHcC\Module {
 	\Zend\Mvc\MvcEvent,
 	\Zend\ServiceManager\ServiceLocatorAwareInterface,
 	\Zend\ServiceManager\ServiceLocatorAwareTrait,
-	\Application\Event\Listener\ModuleMatchListener,
-	\Application\Event\Mvc\ModuleMatchEvent;
+	\MNHcC\Event\Listener\ModuleMatchListener,
+	\MNHcC\Event\Mvc\ModuleMatchEvent;
 
     /**
      * BasicModule

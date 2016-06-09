@@ -13,7 +13,7 @@ namespace MNHcC {
 	\Zend\EventManager\EventInterface,
 	\Zend\ServiceManager\ServiceLocatorAwareInterface,
 	\Zend\ServiceManager\ServiceLocatorAwareTrait,
-	\Application\ModuleManager\Feature\AutoloaderProviderTrait;
+	\MNHcC\ModuleManager\Feature\AutoloaderProviderTrait;
 
     /**
      * Module
