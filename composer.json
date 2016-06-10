@@ -1,5 +1,5 @@
 {
-    "name": "carschrotter/MNHccZendRoutes",
+    "name": "MNHcC/MNHccZendRoutes",
     "description": "SEO Route, SEO Segment",
     "version": "1.0.0",
     "type": "module",
@@ -10,7 +10,7 @@
         "seo",
         "route"
     ],
-    "homepage": "https://github.com/carschrotter/MNHccZendRoutes",
+    "homepage": "https://github.com/MNHcC/MNHccZendRoutes",
     "authors": [
         {
             "name": "Michael Hegenbarth",
