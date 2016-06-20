@@ -52,13 +52,13 @@ namespace MNHcC\Router\Http {
 	    /* @var $parentResult \Zend\Mvc\Router\Http\RouteMatch */
 	    $parentResult = parent::match($request, $pathOffset, $options);
 	    
+            if ($parentResult instanceof RouteMatch == false) {
+		return;
+	    }
+            
 	    /* @var $workingVersionRm \Zend\Mvc\Router\Http\RouteMatch */
 	    $workingVersionRm = clone $parentResult;
 
-	    if ($parentResult instanceof RouteMatch == false) {
-		return;
-	    }
-	    
 	    // call event to resolv real controller for more info see on \Zend\Mvc\ModuleRouteListener::onRoute()
 	    (new \Zend\Mvc\ModuleRouteListener())->onRoute((new \Zend\Mvc\MvcEvent())->setRouteMatch($workingVersionRm));
 	    

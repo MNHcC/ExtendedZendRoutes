@@ -1,8 +1,12 @@
 <?php
 
 namespace MNHcC\Router\Http {
-
-    use \Zend\Mvc\Router\Http\Segment;
+    
+    if(class_exists(\Zend\Mvc\Router\Http\Segment::class)){
+        require __DIR__ .'/namespaces/zend2.php';
+    } else {
+        require __DIR__ .'/namespaces/zend3.php';
+    }
     /**
      * SeoSegment
      * Allows to create an easy-to-configure method Aliases for URI parts.
