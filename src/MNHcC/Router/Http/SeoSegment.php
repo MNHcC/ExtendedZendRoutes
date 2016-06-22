@@ -1,12 +1,6 @@
 <?php
 
 namespace MNHcC\Router\Http {
-    
-    if(class_exists(\Zend\Mvc\Router\Http\Segment::class)){
-        require __DIR__ .'/namespaces/zend2.php';
-    } else {
-        require __DIR__ .'/namespaces/zend3.php';
-    }
     /**
      * SeoSegment
      * Allows to create an easy-to-configure method Aliases for URI parts.
@@ -67,6 +61,8 @@ namespace MNHcC\Router\Http {
 	 * @throws Exception\InvalidArgumentException
 	 */
 	public static function factory($options = array()) {
+            debug_print_backtrace();
+            
 	    if ($options instanceof Traversable) {
 		$options = ArrayUtils::iteratorToArray($options);
 	    } elseif (!is_array($options)) {
@@ -106,7 +102,9 @@ namespace MNHcC\Router\Http {
 	    
 	    $parent = parent::match($request, $pathOffset, $options);
 	    
-	    if($parent instanceof \Zend\Mvc\Router\RouteMatch == false) return;
+	    if (!$this->isInstanceofRouteMatch($parent)){ 
+                return;
+            }
 	    
 	    foreach($this->getSeoMapp() as $option_name => $aliases){
 		if($parent->getParam($option_name, null) !== null) {
