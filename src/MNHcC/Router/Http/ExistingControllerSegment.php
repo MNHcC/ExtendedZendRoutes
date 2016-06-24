@@ -8,9 +8,7 @@
 
 namespace MNHcC\Router\Http {
 
-    use \Zend\Mvc\Router\RouteMatch,
-	\Zend\ServiceManager\ServiceLocatorAwareInterface,
-	\Zend\ServiceManager\ServiceLocatorAwareTrait;
+    use \Zend\Mvc\Router\RouteMatch;
 
     /**
      * ControlerExitis
@@ -19,14 +17,12 @@ namespace MNHcC\Router\Http {
      * @copyright 2015, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
      * @license default
      */
-    class ExistingControllerSegment extends SeoSegment
-	implements ServiceLocatorAwareInterface, \Zend\Stdlib\InitializableInterface {
-
-	use ServiceLocatorAwareTrait;
+    class ExistingControllerSegment extends SeoSegment {
 
 	/**
 	 * the called Controller
-	 * @var text 
+         * 
+	 * @var string 
 	 */
 	protected $controller = 'Index';
 	
@@ -35,7 +31,13 @@ namespace MNHcC\Router\Http {
 	 * @var \Zend\Mvc\Controller\ControllerManager 
 	 */
 	protected $controllerManager;
-	
+        
+        public function __construct($route, array $constraints = array(), array $defaults = array(), $seo_mapp = array(),$controllerManager =null ) {
+            parent::__construct($route, $constraints, $defaults, $seo_mapp);
+            $this->init($controllerManager);
+        }
+
+        
 	/**
 	 * match(): defined by RouteInterface interface.
 	 *
@@ -44,21 +46,24 @@ namespace MNHcC\Router\Http {
 	 * @param  string|null $pathOffset
 	 * @param  array       $options
 	 * @return RouteMatch|null
-	 * @throws Exception\RuntimeException
+	 * @throws \Zend\Router\Exception\RuntimeException
 	 */
 	public function match(\Zend\Stdlib\RequestInterface $request,
 		$pathOffset = null, array $options = []) {
 
+            $this->checkIsInit();
+            
 	    /* @var $parentResult \Zend\Mvc\Router\Http\RouteMatch */
 	    $parentResult = parent::match($request, $pathOffset, $options);
 	    
+            
+            if($this->isInstanceofRouteMatch($parentResult)== false ){
+                return;
+            }
+
 	    /* @var $workingVersionRm \Zend\Mvc\Router\Http\RouteMatch */
 	    $workingVersionRm = clone $parentResult;
 
-	    if ($parentResult instanceof RouteMatch == false) {
-		return;
-	    }
-	    
 	    // call event to resolv real controller for more info see on \Zend\Mvc\ModuleRouteListener::onRoute()
 	    (new \Zend\Mvc\ModuleRouteListener())->onRoute((new \Zend\Mvc\MvcEvent())->setRouteMatch($workingVersionRm));
 	    
@@ -108,10 +113,12 @@ namespace MNHcC\Router\Http {
 	/**
 	 * @param \Zend\Mvc\Controller\ControllerManager  $controllerManager
 	 */
-	public function init() {
-	    /* @var $loader \Zend\Mvc\Controller\ControllerManager */
-	    $controllerManager = func_get_arg(0);
+	public function init(\Zend\Mvc\Controller\ControllerManager $controllerManager) {
+//	    /* @var $loader  */
+//	    $controllerManager = func_get_arg(0);
 	    $this->setControllerManager($controllerManager);
+            $this->isInit = true;
+            return $this->isInit;
 	}
         
     }

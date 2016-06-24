@@ -1,8 +1,6 @@
 <?php
 
 namespace MNHcC\Router\Http {
-
-    use \Zend\Mvc\Router\Http\Segment;
     /**
      * SeoSegment
      * Allows to create an easy-to-configure method Aliases for URI parts.
@@ -47,8 +45,8 @@ namespace MNHcC\Router\Http {
 	 * @param  array  $constraints
 	 * @param  array  $defaults
 	 */
-	public function __construct($route, array $constraints = array(),
-		array $defaults = array(), $seo_mapp = array()) {
+	public function __construct($route, array $constraints = [],
+		array $defaults = [], $seo_mapp = []) {
 	    parent::__construct($route, $constraints, $defaults);
 	    $this->setSeomapp($seo_mapp);
 	}
@@ -62,11 +60,21 @@ namespace MNHcC\Router\Http {
 	 * @return Segment
 	 * @throws Exception\InvalidArgumentException
 	 */
-	public static function factory($options = array()) {
+	public static function factory($options = [], $constructor = []) {
+            \Kint::trace();
+            
+            //check $options type
 	    if ($options instanceof Traversable) {
 		$options = ArrayUtils::iteratorToArray($options);
 	    } elseif (!is_array($options)) {
 		throw new Exception\InvalidArgumentException(__METHOD__ . ' expects an array or Traversable set of options');
+	    }
+            
+            //ceck $constructor type
+            if ($constructor instanceof Traversable) {
+		$constructor = ArrayUtils::iteratorToArray($constructor);
+	    } elseif (!is_array($constructor)) {
+		throw new Exception\InvalidArgumentException('secont argument from' .__METHOD__ . ' expects an array or Traversable set of constructor arguments');
 	    }
 
 	    if (!isset($options['route'])) {
@@ -74,35 +82,39 @@ namespace MNHcC\Router\Http {
 	    }
 
 	    if (!isset($options['constraints'])) {
-		$options['constraints'] = array();
+		$options['constraints'] = [];
 	    }
 
 	    if (!isset($options['defaults'])) {
-		$options['defaults'] = array();
+		$options['defaults'] = [];
 	    }
 
 	    if (!isset($options['seo_mapp'])) {
-		$options['seo_mapp'] = array();
+		$options['seo_mapp'] = [];
 		foreach (\array_keys(array_merge($options['constraints'], $options['defaults'])) as $val) {
 		    if($val == '__NAMESPACE__') continue;
-		    $options['seo_mapp'][$val] = array();
+		    $options['seo_mapp'][$val] = [];
 		}
 	    }
-
-	    $self = new static($options['route'], $options['constraints'],   
-		    $options['defaults'], $options['seo_mapp']);
-	    //$self->setSeomapp($options['seo_mapp']);
-	    return $self;
+            if(isset($options['constructor'])){
+                $constructor = array_merge($options['constructor'], $constructor);
+            }
+            
+            return new static($options['route'], $options['constraints'], 
+                    $options['defaults'], $options['seo_mapp'], 
+                    ...$constructor);//merge parms whit $constructor
 	}
 	
 	public function match(\Zend\Stdlib\RequestInterface $request,
-		$pathOffset = null, array $options = array()) {
+		$pathOffset = null, array $options = []) {
 	    
 	    $alias_set = [];
 	    
 	    $parent = parent::match($request, $pathOffset, $options);
 	    
-	    if($parent instanceof \Zend\Mvc\Router\RouteMatch == false) return;
+	    if (!$this->isInstanceofRouteMatch($parent)){ 
+                return;
+            }
 	    
 	    foreach($this->getSeoMapp() as $option_name => $aliases){
 		if($parent->getParam($option_name, null) !== null) {
