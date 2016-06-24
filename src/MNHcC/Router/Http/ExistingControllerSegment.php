@@ -32,9 +32,9 @@ namespace MNHcC\Router\Http {
 	 */
 	protected $controllerManager;
         
-        public function __construct($route, array $constraints = array(), array $defaults = array(), $seo_mapp = array()) {
-            
+        public function __construct($route, array $constraints = array(), array $defaults = array(), $seo_mapp = array(),$controllerManager =null ) {
             parent::__construct($route, $constraints, $defaults, $seo_mapp);
+            $this->init($controllerManager);
         }
 
         
