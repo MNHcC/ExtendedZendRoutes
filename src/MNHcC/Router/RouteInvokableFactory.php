@@ -13,7 +13,7 @@ USE Interop\Container\ContainerInterface;
  *
  * @author carschrotter
  */
-class RouteInvokableFactory extends \Zend\Router\RouteInvokableFactory{
+class RouteInvokableFactory extends Http\RouteInvokableFactory{
     
      public function __invoke(ContainerInterface $container, $routeName, array $options = null) {
         if(isset($options['constructor'])) unset ($options['constructor']);

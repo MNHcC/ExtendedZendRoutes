@@ -11,6 +11,8 @@ namespace MNHcC {
     use \Zend\EventManager\EventInterface,
         \Zend\ModuleManager\Feature,
         \Zend\Mvc\MvcEvent,
+        \Zend\Mvc\Router\Http\Segment as MvcSegment,
+        \Zend\Router\Http\Segment,
         \Zend\ServiceManager\ServiceLocatorInterface,
         \Zend\Loader\StandardAutoloader,
         \Zend\Loader\ClassMapAutoloader,
@@ -53,19 +55,49 @@ namespace MNHcC {
 
             //Workaround for the MVC component version 3. 
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
-            if (class_exists(\Zend\Mvc\Router\Http\Segment::class)) {//|| !(defined('\Application\Module::VERSION') && version_compare(\Application\Module::VERSION, '3.0.0dev', '>=') ) ) { //check is namespace \Zend\Mvc\Router\...
-                $config[ClassMapAutoloader::class][] = [Router\Http\Segment::class =>
-                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__] .
-                    '/Router/Http/_versions/Segment_2.php'
-                ];
-            } else { // newer version of zend is used
-                $config[ClassMapAutoloader::class][] = [Router\Http\Segment::class =>
-                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__] .
-                    '/Router/Http/_versions/Segment_3.php'
+            $zendMajor = $this->wichZendMvcMajor();
+//            
+//            $config[StandardAutoloader::class]['namespaces'][] = 
+//                    
+//                    $__NAMESPACE__ => $__DIR__ .DS. 'src' .DS. $__NAMESPACE__;
+	
+            foreach ([Router\Http\RouteInvokableFactory::class, Router\Http\Segment::class] as $class) {
+                $config[ClassMapAutoloader::class][] = [$class =>
+                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__]
+                    . DIRECTORY_SEPARATOR
+                    . '_versions'
+                    . DIRECTORY_SEPARATOR
+                    . $zendMajor
+                    . str_replace('\\', DIRECTORY_SEPARATOR, preg_replace('~^' . preg_quote(__NAMESPACE__, '~') . '~', '', $class))
+                    . '.php'
                 ];
             }
 
             return $config;
+        }
+        
+        public function wichZendMvcMajor(){
+            $version = 2;
+            //check is v3 
+            switch (true) {
+                /**
+                 * check is the new sceleton aplication
+                 */
+                case ( (defined('\Application\Module::VERSION') 
+                        && version_compare(\Application\Module::VERSION, '3.0.0dev', '>=')) ) : 
+                    $version = 3;
+                    break;
+                /**
+                 * check is not namespace \Zend\Mvc\Router\... because zend removed router from Mvc namspace
+                 */
+                case !class_exists(MvcSegment::class) && class_exists(Segment::class):
+                    $version = 3;    
+                    break;
+                default :
+                  $version = 2 ;
+                    break;
+            }
+            return $version;       
         }
 
         public function getConfig() {

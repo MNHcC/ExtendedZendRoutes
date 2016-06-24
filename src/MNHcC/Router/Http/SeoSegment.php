@@ -61,8 +61,6 @@ namespace MNHcC\Router\Http {
 	 * @throws Exception\InvalidArgumentException
 	 */
 	public static function factory($options = [], $constructor = []) {
-            \Kint::trace();
-            
             //check $options type
 	    if ($options instanceof Traversable) {
 		$options = ArrayUtils::iteratorToArray($options);
