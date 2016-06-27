@@ -40,7 +40,7 @@ namespace MNHcC\Event\Listener {
 	 * @param  int $priority
 	 */
 	public function attach(EventManagerInterface $events, $priority = 1) {
-	    $this->listeners[] = $events->attach([MvcEvent::EVENT_DISPATCH],
+	    $this->listeners[] = $events->attach(MvcEvent::EVENT_DISPATCH,
 		    [$this, 'onDispatch'], $priority);
 	}
 
