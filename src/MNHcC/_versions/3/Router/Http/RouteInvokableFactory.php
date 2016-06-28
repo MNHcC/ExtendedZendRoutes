@@ -7,6 +7,6 @@ namespace MNHcC\Router\Http;
  *
  * @author carschrotter
  */
-class RouteInvokableFactory extends \Zend\Mvc\Router\RouteInvokableFactory {
+class RouteInvokableFactory extends \Zend\Router\RouteInvokableFactory {
 
 }
