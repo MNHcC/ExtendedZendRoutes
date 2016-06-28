@@ -61,18 +61,29 @@ namespace MNHcC {
 //                    
 //                    $__NAMESPACE__ => $__DIR__ .DS. 'src' .DS. $__NAMESPACE__;
 	
-            foreach ([Router\Http\RouteInvokableFactory::class, Router\Http\Segment::class] as $class) {
-                $config[ClassMapAutoloader::class][] = [$class =>
-                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__]
-                    . DIRECTORY_SEPARATOR
-                    . '_versions'
-                    . DIRECTORY_SEPARATOR
-                    . $zendMajor
-                    . str_replace('\\', DIRECTORY_SEPARATOR, preg_replace('~^' . preg_quote(__NAMESPACE__, '~') . '~', '', $class))
-                    . '.php'
-                ];
-            }
+//            foreach ([Router\Http\RouteInvokableFactory::class, Router\Http\Segment::class] as $class) {
+//                $config[ClassMapAutoloader::class][] = [$class =>
+//                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__]
+//                    . DIRECTORY_SEPARATOR
+//                    . '_versions'
+//                    . DIRECTORY_SEPARATOR
+//                    . $zendMajor
+//                    . str_replace('\\', DIRECTORY_SEPARATOR, preg_replace('~^' . preg_quote(__NAMESPACE__, '~') . '~', '', $class))
+//                    . '.php'
+//                ];
+//            }
 
+            $config[ClassMapAutoloader::class][] = 
+                $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__] //from current autoloader config
+                . DIRECTORY_SEPARATOR
+                . '_versions'
+                . DIRECTORY_SEPARATOR
+                . $zendMajor
+                . DIRECTORY_SEPARATOR
+                . 'autoload_classmap.php' //the classmap file
+            ;
+            
+            
             return $config;
         }
         
@@ -119,7 +130,6 @@ namespace MNHcC {
             $modul = $this;
             $this->getAbstractPluginManager()->addInitializer(
                     function($route, $cl) use($modul) {
-                var_fump($route);
                 if ($route instanceof Router\Http\ExistingControllerSegment) {
                     $route->init($modul->getServiceLocator()->get('ControllerLoader'));
                 }
