@@ -31,16 +31,37 @@ namespace MNHcC\Router\Http {
             $this->setParam('matched_aliases', []);
         }
 
-        public function addMatchedAlias($key, array $option_name) {
-            $this->params['matched_aliases'][$key] = $option_name;
+        /**
+         * Add a matched aliases. override the old and add to the MatchedAliases
+         * @param string $name
+         * @param string $original
+         * @param string $alias
+         * @return $this
+         */
+        public function addMatchedAlias($name, $original, $alias) {
+            $this->setParam($name, $alias)
+                ->params['matched_aliases'][$name] = [$original => $alias];
+            
+            return $this;
         }
         
-        public function setMatchedAliases($matched_aliases) {
-            $this->setParam('matched_aliases', $matched_aliases);
+        /**
+         * Set the matched aliases as complete array
+         * 
+         * @param array $matched_aliases A array of matched aliases and in scheme of [ 'param name' => ['original' => 'alias'] ]
+         * @return $this
+         */
+        public function setMatchedAliases(array $matched_aliases) {
+            return $this->setParam('matched_aliases', $matched_aliases);
         }
         
+        /**
+         * Get the matched aliases as complete array
+         * 
+         * @return array A array of matched aliases and in scheme of [ 'param name' => ['original' => 'alias'] ]
+         */
         public function getMatchedAliases() {
-            $this->getParam('matched_aliases', []);
+            return $this->getParam('matched_aliases', []);
         }
         
         

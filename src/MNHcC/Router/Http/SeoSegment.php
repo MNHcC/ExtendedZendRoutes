@@ -124,14 +124,13 @@ namespace MNHcC\Router\Http {
             /* @param  $match SeoRouteMatch */
             $match = SeoRouteMatch::factory($parent);
 
-            foreach ($this->getSeoMapp() as $option_name => $aliases) {
-                if ($match->getParam($option_name, null) !== null) {
-                    foreach ($aliases as $alias => $value) {
-                        if ($match->getParam($option_name) == $alias) {
-                            $match->setParam($option_name, $value);
-                            $alias_set[$option_name] = [$alias => $value];
-                            //first found 
-                            break;
+            foreach ($this->getSeoMapp() as $param_name => $aliases) {
+                if ($match->getParam($param_name, null) !== null) {
+                    foreach ($aliases as $original => $alias) {
+                        if ($match->getParam($param_name) == $original) {
+                            $match->setParam($param_name, $alias);
+                            $alias_set[$param_name] = [$original => $alias];
+                            break; //first found 
                         }
                     }
                 }
