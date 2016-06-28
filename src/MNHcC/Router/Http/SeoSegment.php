@@ -127,20 +127,15 @@ namespace MNHcC\Router\Http {
             foreach ($this->getSeoMapp() as $param_name => $aliases) {
                 if ($match->getParam($param_name, null) !== null) {
                     foreach ($aliases as $original => $alias) {
-                        if ($match->getParam($param_name) == $original) {
-                            $match->setParam($param_name, $alias);
-                            $alias_set[$param_name] = [$original => $alias];
+                        if ($match->getParam($param_name, false) == $original) {
+                            $match->addMatchedAlias($param_name, $original, $alias);
                             break; //first found 
                         }
                     }
                 }
             }
-            //\Kint::dump($this->getServiceLocator());
-            $match->setParam('matched_aliases', $alias_set);
 
             return $match;
-
-            //return SeoRouteMatch::factory($parent);
         }
 
         /**
