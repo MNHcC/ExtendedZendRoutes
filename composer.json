@@ -18,11 +18,17 @@
             "role": "Developer"
         }
     ],
+    
+    "repositories": [{
+        "type": "vcs",
+        "url": "https://github.com/MNHcC/ZendHelper.git"
+    }],
     "require": {
         "php": ">=5.6.0",
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
-        "zendframework/zend-mvc": "*"
+        "zendframework/zend-mvc": "*",
+        "MNHcC/MNHccZendRoutes": "dev-master"
     },
     "autoload": {
         "psr-0": {
