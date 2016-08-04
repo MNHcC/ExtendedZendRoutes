@@ -21,14 +21,14 @@
     
     "repositories": [{
         "type": "vcs",
-        "url": "https://github.com/MNHcC/ZendHelper.git"
+        "url": "https://github.com/MNHcC/ZendBase.git"
     }],
     "require": {
         "php": ">=5.6.0",
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
         "zendframework/zend-mvc": "*",
-        "MNHcC/MNHccZendRoutes": "dev-master"
+        "MNHcC/ZendBase": "dev-master"
     },
     "autoload": {
         "psr-0": {

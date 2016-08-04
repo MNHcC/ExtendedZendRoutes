@@ -8,28 +8,29 @@
 
 namespace MNHcC {
 
-    use \Zend\EventManager\EventInterface,
-        \Zend\ModuleManager\Feature,
-        \Zend\Mvc\MvcEvent,
-        \Zend\Mvc\Router\Http\Segment as MvcSegment,
-        \Zend\Router\Http\Segment,
-        \Zend\ServiceManager\ServiceLocatorInterface,
-        \Zend\Loader\StandardAutoloader,
-        \Zend\Loader\ClassMapAutoloader,
-        \MNHcC\ModuleManager\Feature\AutoloaderProviderTrait;
+    use Zend\EventManager\EventInterface;
+    use Zend\ModuleManager\Feature\ConfigProviderInterface;
+    use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
+    use Zend\ModuleManager\Feature\BootstrapListenerInterface;
+    use Zend\Mvc\MvcEvent;
+    use Zend\Mvc\Router\Http\Segment as MvcSegment;
+    use Zend\Router\Http\Segment;
+    use Zend\ServiceManager\ServiceLocatorInterface;
+    use Zend\Loader\StandardAutoloader;
+    use Zend\Loader\ClassMapAutoloader;
+    use MNHcC\ModuleManager\Feature\AutoloaderProviderTrait;
 
     /**
      * Module
      *
      * @author MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
-     * @copyright 2015, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
-     * @license default
+     * @copyright 2015 - 2016, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
+     * @license see license file
      */
-    class Module implements
-    Feature\ConfigProviderInterface, Feature\AutoloaderProviderInterface, Feature\BootstrapListenerInterface {
+    class Module implements ConfigProviderInterface, AutoloaderProviderInterface, BootstrapListenerInterface {
 
         use AutoloaderProviderTrait {
-            getAutoloaderConfig as trait_getAutoloaderConfig;
+            getAutoloaderConfig as traitGetAutoloaderConfig;
         }
 
         /**
@@ -51,7 +52,7 @@ namespace MNHcC {
 
         public function getAutoloaderConfig() {
 
-            $config = $this->trait_getAutoloaderConfig();
+            $config = $this->traitGetAutoloaderConfig();
 
             //Workaround for the MVC component version 3. 
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
