@@ -9,9 +9,6 @@
 namespace MNHcC {
 
     use Zend\EventManager\EventInterface;
-    use Zend\ModuleManager\Feature\ConfigProviderInterface;
-    use Zend\ModuleManager\Feature\AutoloaderProviderInterface;
-    use Zend\ModuleManager\Feature\BootstrapListenerInterface;
     use Zend\Mvc\MvcEvent;
     use Zend\Mvc\Router\Http\Segment as MvcSegment;
     use Zend\Router\Http\Segment;
@@ -27,7 +24,7 @@ namespace MNHcC {
      * @copyright 2015 - 2016, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
      * @license see license file
      */
-    class Module implements ConfigProviderInterface, AutoloaderProviderInterface, BootstrapListenerInterface {
+    class Module extends Module\BasicModule{
 
         use AutoloaderProviderTrait {
             getAutoloaderConfig as traitGetAutoloaderConfig;
@@ -51,29 +48,10 @@ namespace MNHcC {
         protected $abstractPluginManager;
 
         public function getAutoloaderConfig() {
-
             $config = $this->traitGetAutoloaderConfig();
-
             //Workaround for the MVC component version 3. 
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
             $zendMajor = $this->wichZendMvcMajor();
-//            
-//            $config[StandardAutoloader::class]['namespaces'][] = 
-//                    
-//                    $__NAMESPACE__ => $__DIR__ .DS. 'src' .DS. $__NAMESPACE__;
-	
-//            foreach ([Router\Http\RouteInvokableFactory::class, Router\Http\Segment::class] as $class) {
-//                $config[ClassMapAutoloader::class][] = [$class =>
-//                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__]
-//                    . DIRECTORY_SEPARATOR
-//                    . '_versions'
-//                    . DIRECTORY_SEPARATOR
-//                    . $zendMajor
-//                    . str_replace('\\', DIRECTORY_SEPARATOR, preg_replace('~^' . preg_quote(__NAMESPACE__, '~') . '~', '', $class))
-//                    . '.php'
-//                ];
-//            }
-
             $config[ClassMapAutoloader::class][] = 
                 $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__] //from current autoloader config
                 . DIRECTORY_SEPARATOR
@@ -132,6 +110,7 @@ namespace MNHcC {
             $this->getAbstractPluginManager()->addInitializer(
                     function($route, $cl) use($modul) {
                 if ($route instanceof Router\Http\ExistingControllerSegment) {
+                    /* @var $modul Module\BasicModuleInterface */
                     $route->init($modul->getServiceLocator()->get('ControllerLoader'));
                 }
             }, 500);

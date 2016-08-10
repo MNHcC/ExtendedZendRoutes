@@ -1,12 +1,16 @@
 <?php
 
-namespace MNHcC\Router\Http;
+namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
-/**
- * Description of RouteInvokableFactory
- *
- * @author carschrotter
- */
-class RouteInvokableFactory extends \Zend\Router\RouteInvokableFactory {
+    use Zend\Router\RouteInvokableFactory as ZendRouteInvokableFactory;
+
+    /**
+     * Description of RouteInvokableFactory
+     *
+     * @author carschrotter
+     */
+    class RouteInvokableFactory extends ZendRouteInvokableFactory {
+        
+    }
 
 }

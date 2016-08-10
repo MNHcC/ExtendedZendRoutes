@@ -6,14 +6,21 @@
  * and open the template in the editor.
  */
 
-namespace MNHcC\Router\Http;
+namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
-/**
- * Description of RouteMatch
- *
- * @author carschrotter
- */
-class RouteMatch extends \Zend\Mvc\Router\Http\RouteMatch {
-    const parentc = \Zend\Mvc\Router\Http\RouteMatch::class;
-    static $parentc = self::parentc;
+    use \Zend\Mvc\Router\Http\RouteMatch as ZendMvcRouteMatch;
+    
+    /**
+     * Description of RouteMatch
+     *
+     * @author carschrotter
+     */
+    class RouteMatch extends ZendMvcRouteMatch {
+
+        const parentc = ZendMvcRouteMatch::class;
+
+        static $parentc = self::parentc;
+
+    }
+
 }

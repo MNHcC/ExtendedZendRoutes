@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace MNHcC\Router\Http {
+namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
     use \Closure;
     use \InvalidArgumentException;

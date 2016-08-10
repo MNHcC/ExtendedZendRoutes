@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace MNHcC\Router;
+namespace MNHcC\ExtendedZendRoutes\Router;
 USE Interop\Container\ContainerInterface;
 /**
  * Description of RouteInvokableFactory

@@ -1,6 +1,6 @@
 <?php
 
-namespace MNHcC\Router\Http {
+namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
     /**
      * SeoSegment

@@ -1,5 +1,5 @@
 {
-    "name": "MNHcC/MNHccZendRoutes",
+    "name": "mnhcc/mnhcczendroutes",
     "description": "SEO Route, SEO Segment",
     "version": "1.0.0",
     "type": "module",
@@ -18,24 +18,30 @@
             "role": "Developer"
         }
     ],
-    
-    "repositories": [{
-        "type": "vcs",
-        "url": "https://github.com/MNHcC/ZendBase.git"
-    }],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MNHcC/ZendBase.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/MNHcC/Zend3bcHelper.git"
+        }
+    ],
     "require": {
         "php": ">=5.6.0",
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
         "zendframework/zend-mvc": "*",
+        "MNHcC/Zend3bcHelper": "dev-master",
         "MNHcC/ZendBase": "dev-master"
     },
     "autoload": {
-        "psr-0": {
-            "MNHcC": "src/"
+        "psr-4": {
+            "MNHcC\\ExtendedZendRoutes\\": "src/"
         },
         "classmap": [
-            "./Module.php"
+            "src/Module.php"
         ]
     }
 }
