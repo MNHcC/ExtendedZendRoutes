@@ -22,10 +22,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/MNHcC/ZendBase.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/MNHcC/Zend3bcHelper.git"
         }
     ],
     "require": {
@@ -33,7 +29,6 @@
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
         "zendframework/zend-mvc": "*",
-        "MNHcC/Zend3bcHelper": "dev-master",
         "MNHcC/ZendBase": "dev-master"
     },
     "autoload": {
