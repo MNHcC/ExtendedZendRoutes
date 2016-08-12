@@ -24,7 +24,7 @@
             "dev-master": "0.9.1-dev"
         }
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "prefer-stable": true,
     "repositories": [
         {
@@ -41,6 +41,7 @@
         "zendframework/zend-eventmanager": "^2.6 || ^3.0",
         "zendframework/zend-config": "^2.6 || ^3.0",
         "zendframework/zend-mvc": "^2.7 || ^3.0",
+        "mnhcc/zend3bchelper": "^0.1.0-dev || ^1.0",
         "mnhcc/zendbase": "^0.4.1-dev || ^1.0"
     },
     "autoload": {
