@@ -40,7 +40,7 @@
         "php": ">=5.6.0",
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
-        "zendframework/zend-mvc": "*",
+        "zendframework/zend-mvc": "~2.7 || ~3.0",
         "mnhcc/zendbase": "dev-master"
     },
     "autoload": {
