@@ -16,6 +16,7 @@ namespace MNHcC\ExtendedZendRoutes {
     use Zend\Loader\StandardAutoloader;
     use Zend\Loader\ClassMapAutoloader;
     use MNHcC\ModuleManager\Feature\AutoloaderProviderTrait;
+    use MNHcC\Module\BasicModule;
 
     /**
      * Module
@@ -24,7 +25,7 @@ namespace MNHcC\ExtendedZendRoutes {
      * @copyright 2015 - 2016, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
      * @license see license file
      */
-    class Module extends Module\BasicModule{
+    class Module extends BasicModule{
 
         use AutoloaderProviderTrait {
             getAutoloaderConfig as traitGetAutoloaderConfig;

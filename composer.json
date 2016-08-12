@@ -1,16 +1,17 @@
 {
-    "name": "mnhcc/mnhcczendroutes",
+    "name": "mnhcc/extendedzendroutes",
     "description": "SEO Route, SEO Segment",
-    "version": "1.0.0",
+    "version": "0.9.1-dev",
     "type": "module",
     "license": "MIT",
     "tags": [
         "zend framework",
         "zf2",
+        "zf3",
         "seo",
         "route"
     ],
-    "homepage": "https://github.com/MNHcC/MNHccZendRoutes",
+    "homepage": "https://github.com/MNHcC/ExtendedZendRoutes",
     "authors": [
         {
             "name": "Michael Hegenbarth",
@@ -18,6 +19,11 @@
             "role": "Developer"
         }
     ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.9.1-dev"
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true,
     "repositories": [
@@ -35,7 +41,7 @@
         "zendframework/zend-eventmanager": "*",
         "zendframework/zend-config": "*",
         "zendframework/zend-mvc": "*",
-        "MNHcC/ZendBase": "dev-master"
+        "mnhcc/zendbase": "dev-master"
     },
     "autoload": {
         "psr-4": {
