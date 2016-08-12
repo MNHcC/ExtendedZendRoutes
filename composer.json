@@ -18,10 +18,16 @@
             "role": "Developer"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "repositories": [
         {
             "type": "vcs",
             "url": "https://github.com/MNHcC/ZendBase.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/MNHcC/Zend3bcHelper.git"
         }
     ],
     "require": {

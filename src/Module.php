@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-namespace MNHcC {
+namespace MNHcC\ExtendedZendRoutes {
 
     use Zend\EventManager\EventInterface;
     use Zend\Mvc\MvcEvent;
@@ -67,20 +67,23 @@ namespace MNHcC {
         }
         
         public function wichZendMvcMajor(){
+            static $version;
+            if($version) return $version;
+            
             $version = 2;
-            //check is v3 
+            
             switch (true) {
                 /**
-                 * check is the new sceleton aplication
+                 * check is the new sceleton aplication (used v3 component
                  */
-                case ( (defined('\Application\Module::VERSION') 
+                case ( (@defined('\Application\Module::VERSION') //check for new sceleton aplication
                         && version_compare(\Application\Module::VERSION, '3.0.0dev', '>=')) ) : 
                     $version = 3;
                     break;
                 /**
                  * check is not namespace \Zend\Mvc\Router\... because zend removed router from Mvc namspace
                  */
-                case !class_exists(MvcSegment::class) && class_exists(Segment::class):
+                case !class_exists(MvcSegment::class) && class_exists(Segment::class): //check is v3 MVC component
                     $version = 3;    
                     break;
                 default :
