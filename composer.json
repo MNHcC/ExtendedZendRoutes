@@ -1,7 +1,7 @@
 {
     "name": "mnhcc/extendedzendroutes",
     "description": "SEO Route, SEO Segment",
-    "version": "0.9.1-dev",
+    "version": "0.9.3-dev",
     "type": "module",
     "license": "MIT",
     "tags": [
@@ -21,7 +21,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "0.9.1-dev"
+            "dev-master": "0.9.3-dev"
         }
     },
     "minimum-stability": "stable",
