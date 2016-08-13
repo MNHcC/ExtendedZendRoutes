@@ -1,6 +1,6 @@
 <?php
 
-namespace MNHcC;
+namespace MNHcC\ExtendedZendRoutes;
 
 return [
     'route_manager' => [
