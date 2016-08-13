@@ -55,7 +55,7 @@ namespace MNHcC\ExtendedZendRoutes {
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
             
             $config[ClassMapAutoloader::class][] = sprintf('%s/../src_versions/%d/autoload_classmap.php', 
-                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__], //path from current autoloader config 
+                    __DIR__,
                     $this->wichZendMvcMajor()
             ); //the classmap file
 
