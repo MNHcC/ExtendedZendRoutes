@@ -5,7 +5,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
     use Zend\Mvc\Router\RouteInvokableFactory as ZendRouteMvcInvokableFactory;
     
     /**
-     * Description of RouteInvokableFactory
+     * RouteInvokableFactory
      *
      * @author carschrotter
      */

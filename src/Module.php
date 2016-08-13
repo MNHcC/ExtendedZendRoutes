@@ -49,21 +49,16 @@ namespace MNHcC\ExtendedZendRoutes {
         protected $abstractPluginManager;
 
         public function getAutoloaderConfig() {
+            
             $config = $this->traitGetAutoloaderConfig();
             //Workaround for the MVC component version 3. 
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
-            $zendMajor = $this->wichZendMvcMajor();
-            $config[ClassMapAutoloader::class][] = 
-                $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__] //from current autoloader config
-                . DIRECTORY_SEPARATOR
-                . '_versions'
-                . DIRECTORY_SEPARATOR
-                . $zendMajor
-                . DIRECTORY_SEPARATOR
-                . 'autoload_classmap.php' //the classmap file
-            ;
             
-            
+            $config[ClassMapAutoloader::class][] = sprintf('%s/../src_versions/%d/autoload_classmap.php', 
+                    $config[StandardAutoloader::class]['namespaces'][__NAMESPACE__], //path from current autoloader config 
+                    $this->wichZendMvcMajor()
+            ); //the classmap file
+
             return $config;
         }
         
