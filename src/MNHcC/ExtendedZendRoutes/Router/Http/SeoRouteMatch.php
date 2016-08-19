@@ -72,9 +72,8 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
          * @throws InvalidArgumentException
          */
 	public static function factory($match) {
-            $parentc = static::parentc;
-            if(!($match instanceof $parentc)){
-                throw new InvalidArgumentException('Parent muss a Instance of '. static::parentc);
+            if(!($match instanceof static::$parentClass)){
+                throw new InvalidArgumentException('The match muss a Instance of '. static::PARENT_CLASS);
             }
 //	    $refl = new \ReflectionClass($parent);
 //	    $refl_parms = $refl->getProperty('params');
@@ -87,7 +86,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
 //	    $length = $refl_length->getValue($parent);
             
             /* g for get */
-            $g = Closure::bind(function($roperty){ return $this->$roperty;}, $match, self::parentc);
+            $g = Closure::bind(function($roperty){ return $this->$roperty;}, $match, static::PARENT_CLASS);
             return (new static( $g('params'), $g('length')))
                 ->setMatchedRouteName($g('matchedRouteName'));
 	}

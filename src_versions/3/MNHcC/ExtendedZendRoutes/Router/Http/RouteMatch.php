@@ -17,9 +17,9 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
      */
     class RouteMatch extends ZendRouteMatch {
 
-        const parentc = ZendRouteMatch::class;
+        const PARENT_CLASS = ZendRouteMatch::class;
 
-        static $parentc = self::parentc;
+        static $parentClass = self::PARENT_CLASS;
 
     }
 
