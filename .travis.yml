@@ -7,4 +7,4 @@ php: # specify options for your language
 before_script:
   - composer install
   
-script: phpunit --configuration test/phpunit.xml --coverage-text
+script: vendor/bin/phpunit --configuration ./test/phpunit.xml --coverage-text
