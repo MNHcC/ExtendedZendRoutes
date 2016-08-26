@@ -44,9 +44,12 @@
         "mnhcc/zend3bchelper": "^0.4-dev || ^1.0",
         "mnhcc/zendbase": "^0.4.1-dev || ^1.0"
     },
+    "require-dev": {
+        "PHPUnit": ""
+    },
     "autoload": {
         "psr-4": {
-            "MNHcC\\ExtendedZendRoutes\\": "src/"
+            "MNHcC\\ExtendedZendRoutes\\": "src/MNHcC/ExtendedZendRoutes/"
         },
         "classmap": [
             "src/Module.php"
