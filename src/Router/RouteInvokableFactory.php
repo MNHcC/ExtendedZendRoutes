@@ -18,7 +18,7 @@ namespace MNHcC\ExtendedZendRoutes\Router {
      *
      * @author carschrotter
      */
-    class RouteInvokableFactory extends Http\RouteInvokableFactory {
+    class RouteInvokableFactory extends BaseRouteInvokableFactory {
 
         public function __invoke(ContainerInterface $container, $routeName, array $options = null) {
             if (isset($options['constructor']))

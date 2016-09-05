@@ -13,8 +13,9 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
     use Zend\Mvc\Router\RouteMatch;
     use Zend\Mvc\Router\Http\Segment as ZendMvcSegment;
+    use MNHcC\Zend3bcHelper\Basic\Zend3bcHelperInterface;
 
-    abstract class Segment extends ZendMvcSegment {
+    abstract class Segment extends ZendMvcSegment implements Zend3bcHelperInterface {
 
         const FOR_ZEND = 2;
 

@@ -9,16 +9,16 @@
  * @license BSD
  */
 
-namespace MNHcC\ExtendedZendRoutes\Router\Http {
+namespace MNHcC\ExtendedZendRoutes\Router {
 
-    use Zend\Router\RouteInvokableFactory as ZendRouteInvokableFactory;
-
+    use Zend\Mvc\Router\RouteInvokableFactory as ZendRouteMvcInvokableFactory;
+    use MNHcC\Zend3bcHelper\Basic\Zend3bcHelperInterface;
     /**
-     * Description of RouteInvokableFactory
+     * RouteInvokableFactory
      *
      * @author carschrotter
      */
-    class RouteInvokableFactory extends ZendRouteInvokableFactory {
+    class BaseRouteInvokableFactory extends ZendRouteMvcInvokableFactory implements Zend3bcHelperInterface {
         
     }
 

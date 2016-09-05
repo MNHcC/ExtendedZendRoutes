@@ -114,14 +114,16 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
         }
 
         /**
-         * @param ControllerManager  $controllerManager
+         * 
+         * @param ControllerManager $controllerManager
+         * @return $this
          */
         public function init(ControllerManager $controllerManager) {
             /* @var $controllerManager ControllerManager */
 //	    $controllerManager = func_get_arg(0);
             $this->setControllerManager($controllerManager);
             $this->isInit = true;
-            return $this->isInit;
+            return $this;
         }
 
     }

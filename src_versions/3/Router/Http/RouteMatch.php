@@ -11,14 +11,15 @@
 
 namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
-    use \Zend\Router\Http\RouteMatch as ZendRouteMatch;
+    use Zend\Router\Http\RouteMatch as ZendRouteMatch;
+    use MNHcC\Zend3bcHelper\Basic\Zend3bcHelperInterface;
 
     /**
      * Description of RouteMatch
      *
      * @author carschrotter
      */
-    class RouteMatch extends ZendRouteMatch {
+    class RouteMatch extends ZendRouteMatch implements Zend3bcHelperInterface{
 
         const PARENT_CLASS = ZendRouteMatch::class;
 

@@ -18,9 +18,8 @@ namespace MNHcC\ExtendedZendRoutes {
     use Zend\ServiceManager\ServiceLocatorInterface;
     use Zend\Loader\StandardAutoloader;
     use Zend\Loader\ClassMapAutoloader;
-    use MNHcC\ModuleManager\Feature\AutoloaderProviderTrait;
     use MNHcC\Module\BasicModule;
-
+    use MNHcC\ExtendedZendRoutes\Router\Http\ExistingControllerSegment;
     /**
      * Module
      *
@@ -28,11 +27,7 @@ namespace MNHcC\ExtendedZendRoutes {
      * @copyright 2015 - 2016, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
      * @license see license file
      */
-    class Module extends BasicModule{
-
-        use AutoloaderProviderTrait {
-            getAutoloaderConfig as traitGetAutoloaderConfig;
-        }
+    class Module extends BasicModule {
 
         /**
          *
@@ -52,44 +47,51 @@ namespace MNHcC\ExtendedZendRoutes {
         protected $abstractPluginManager;
 
         public function getAutoloaderConfig() {
-            
-            $config = $this->traitGetAutoloaderConfig();
+            $config = [
+                StandardAutoloader::class => [
+                    'namespaces' => [
+                        __NAMESPACE__ => __DIR__,
+                    ],
+                ],
+            ];
+            if (\file_exists(__DIR__ . DIRECTORY_SEPARATOR . 'autoload_classmap.php')) {
+                $config[ClassMapAutoloader::class] = [__DIR__ . DIRECTORY_SEPARATOR . 'autoload_classmap.php'];
+            }
+
             //Workaround for the MVC component version 3. 
             //Where the Http route was moved from the namespace \Zend\Mvc\Router\Http to \Zend\Router\Http
-            
-            $config[ClassMapAutoloader::class][] = sprintf('%s/../src_versions/%d/autoload_classmap.php', 
-                    __DIR__,
-                    $this->wichZendMvcMajor()
+            $config[ClassMapAutoloader::class][] = sprintf('%s/../src_versions/%d/autoload_classmap.php', __DIR__, $this->wichZendMvcMajor()
             ); //the classmap file
 
             return $config;
         }
-        
-        public function wichZendMvcMajor(){
+
+        public function wichZendMvcMajor() {
             static $version;
-            if($version) return $version;
-            
+            if ($version)
+                return $version;
+
             $version = 2;
-            
+
             switch (true) {
                 /**
                  * check is the new sceleton aplication (used v3 component
                  */
                 case ( (@defined('\Application\Module::VERSION') //check for new sceleton aplication
-                        && version_compare(\Application\Module::VERSION, '3.0.0dev', '>=')) ) : 
+                && version_compare(\Application\Module::VERSION, '3.0.0dev', '>=')) ) :
                     $version = 3;
                     break;
                 /**
                  * check is not namespace \Zend\Mvc\Router\... because zend removed router from Mvc namspace
                  */
-                case !class_exists(MvcSegment::class) && class_exists(Segment::class): //check is v3 MVC component
-                    $version = 3;    
+                case!class_exists(MvcSegment::class) && class_exists(Segment::class): //check is v3 MVC component
+                    $version = 3;
                     break;
                 default :
-                  $version = 2 ;
+                    $version = 2;
                     break;
             }
-            return $version;       
+            return $version;
         }
 
         public function getConfig() {
@@ -103,15 +105,15 @@ namespace MNHcC\ExtendedZendRoutes {
         public function onBootstrap(EventInterface $e) {
 
             $this->setApplication($e->getApplication())
-                ->setServiceLocator($this->getApplication()
-                        ->getServiceManager())
+                    ->setServiceLocator($this->getApplication()
+                            ->getServiceManager())
                     ->setAbstractPluginManager($this->getServiceLocator()
                             ->get('RoutePluginManager'));
-            
+
             $modul = $this;
             $this->getAbstractPluginManager()->addInitializer(
                     function($route, $cl) use($modul) {
-                if ($route instanceof Router\Http\ExistingControllerSegment) {
+                if ($route instanceof ExistingControllerSegment) {
                     /* @var $modul Module\BasicModuleInterface */
                     $route->init($modul->getServiceLocator()->get('ControllerLoader'));
                 }

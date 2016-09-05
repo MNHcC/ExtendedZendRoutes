@@ -14,8 +14,9 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
     use Zend\Router\RouteMatch;
     use Zend\Router\Exception\RuntimeException;
     use Zend\Router\Http\Segment as ZendSegment;
+    use MNHcC\Zend3bcHelper\Basic\Zend3bcHelperInterface;
 
-    class Segment extends ZendSegment {
+    class Segment extends ZendSegment implements Zend3bcHelperInterface {
 
         const FOR_ZEND = 3;
 
@@ -23,9 +24,9 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
         /**
          * check is init  or when not throw Exception
-         * 
+         * excluded because throw error
          * @return boolean
-         * @throws \Zend\Router\Exception\RuntimeException
+         * @throws RuntimeException
          */
         public function checkIsInit() {
             if ($this->isInit) {

@@ -11,6 +11,9 @@
 
 namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
+    use Zend\Stdlib\RequestInterface;
+    use MNHcC\ExtendedZendRoutes\Router\Exception;
+    
     /**
      * SeoSegment
      * Allows to create an easy-to-configure method Aliases for URI parts.
@@ -121,7 +124,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
          * @return RouteMatch|null
          * @throws Exception\RuntimeException
          */
-        public function match(\Zend\Stdlib\RequestInterface $request, $pathOffset = null, array $options = []) {
+        public function match(RequestInterface $request, $pathOffset = null, array $options = []) {
 
             $alias_set = [];
 
