@@ -24,7 +24,7 @@ namespace MNHcC\ExtendedZendRoutes\Router {
             if (isset($options['constructor']))
                 unset($options['constructor']);
 
-            if (trim($routeName, '\\') == trim(Http\ExistingControllerSegment::class, '\\')) {
+            if (is_a(trim($routeName, '\\'), Http\ExistingControllerSegment::class, true)) {
                 if($container instanceof RoutePluginManager){
                     $options['constructor'][] = $container->getServiceLocator()->get('ControllerManager');
                 }else {
