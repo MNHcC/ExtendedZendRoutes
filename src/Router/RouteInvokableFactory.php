@@ -12,7 +12,7 @@
 namespace MNHcC\ExtendedZendRoutes\Router {
 
     use Interop\Container\ContainerInterface;
-
+    use Zend\Mvc\Router\RoutePluginManager;
     /**
      * Description of RouteInvokableFactory
      *
@@ -25,7 +25,11 @@ namespace MNHcC\ExtendedZendRoutes\Router {
                 unset($options['constructor']);
 
             if (trim($routeName, '\\') == trim(Http\ExistingControllerSegment::class, '\\')) {
-                $options['constructor'][] = $container->get('ControllerManager');
+                if($container instanceof RoutePluginManager){
+                    $options['constructor'][] = $container->getServiceLocator()->get('ControllerManager');
+                }else {
+                    $options['constructor'][] = $container->get('ControllerManager');
+                }
             }
             return parent::__invoke($container, $routeName, $options);
         }
