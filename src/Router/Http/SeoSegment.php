@@ -13,6 +13,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
     use Zend\Stdlib\RequestInterface;
     use MNHcC\ExtendedZendRoutes\Router\Exception;
+    use MNHcC\ExtendedZendRoutes\Router\Bc\Segment as BaseSegment;
     
     /**
      * SeoSegment
@@ -43,7 +44,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
      * @copyright 2015, MNHcC  - Michael Hegenbarth (carschrotter) <mnh@mn-hegenbarth.de>
      * @license default
      */
-    class SeoSegment extends Segment {
+    class SeoSegment extends BaseSegment {
 
         /**
          * a list of alliases for matched results.
