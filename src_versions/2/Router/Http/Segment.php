@@ -19,22 +19,6 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
 
         const FOR_ZEND = 2;
 
-        protected $isInit = false;
-
-        /**
-         * check is init  or when not throw Exception
-         * excluded because throw error
-         * @return boolean
-         * @throws RuntimeException
-         */
-        public function checkIsInit() {
-            if ($this->isInit) {
-                return true;
-            } else {
-                throw new RuntimeException(sprintf('%s is not init! Before you use runn %s::init().', static::class ));
-            }
-        }
-
     }
 
 }
