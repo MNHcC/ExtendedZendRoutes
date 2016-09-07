@@ -19,27 +19,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
     class Segment extends ZendSegment implements Zend3bcHelperInterface {
 
         const FOR_ZEND = 3;
-
-        protected $isInit = false;
-
-        /**
-         * check is init  or when not throw Exception
-         * excluded because throw error
-         * @return boolean
-         * @throws RuntimeException
-         */
-        public function checkIsInit() {
-            if ($this->isInit) {
-                return true;
-            } else {
-                throw new RuntimeException(static::class . ' is not init! Before you use initialise this.');
-            }
-        }
-
-        public function isInstanceofRouteMatch($a) {
-            return ($a instanceof RouteMatch);
-        }
-
+        
     }
 
 }

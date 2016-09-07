@@ -31,7 +31,7 @@ namespace MNHcC\ExtendedZendRoutes\Router\Http {
          */
         public function __construct(array $params, $length = 0) {
             parent::__construct($params, $length);
-            $this->setParam('matched_aliases', []);
+            $this->setParam('matched_aliases', $this->getParam('matched_aliases'), []);
         }
 
         /**
