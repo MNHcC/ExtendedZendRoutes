@@ -1,7 +1,7 @@
 {
     "name": "mnhcc/extendedzendroutes",
     "description": "SEO Route, SEO Segment",
-    "version": "0.9.4-dev",
+    "version": "0.9.5-dev",
     "type": "module",
     "license": "BSD",
     "tags": [
@@ -21,7 +21,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "0.9.4-dev"
+            "dev-master": "0.9.5-dev"
         }
     },
     "minimum-stability": "stable",
